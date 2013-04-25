@@ -61,3 +61,23 @@ unitysrc/Assembly-Boo.booproj
 .DS_Store
 
 *.userprefs
+Temp/
+Library/
+
+SpaceInvaders/SpaceInvaders.html
+
+SpaceInvaders.zip
+
+SpaceInvaders/SpaceInvaders.unity3d
+
+SpaceInvaders/UnityObject2.js
+
+SpaceInvaders/jquery.min.js
+
+Assembly-UnityScript-firstpass-vs.unityproj
+
+Assembly-UnityScript-firstpass.unityproj
+
+Assembly-UnityScript-vs.unityproj
+
+Assembly-UnityScript.unityproj
