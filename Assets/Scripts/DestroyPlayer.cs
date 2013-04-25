@@ -16,7 +16,7 @@ public class DestroyPlayer : MonoBehaviour {
 	void OnTriggerEnter(Collider col){
 		if(col.tag == "Bullets"){
 			col.gameObject.SetActive(false);
-			Destroy(gameObject);
+			gameObject.SetActive(false);
 		}
 	}
 }

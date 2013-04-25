@@ -32,11 +32,11 @@ public class PlayerControls : MonoBehaviour {
 		if(obj.tag == target){
 //			playerHealth--;
 			PlayerHealth.PlayerDamaged();
-			Destroy(obj.gameObject);
+			obj.gameObject.SetActive(false);
 		}
 		if(PlayerHealth.CurrentHealth() == 0){
 //			DisplayHealth();
-			Destroy(gameObject);
+			gameObject.SetActive(false);
 //			Application.LoadLevel("GameOver");
 		}
 	}

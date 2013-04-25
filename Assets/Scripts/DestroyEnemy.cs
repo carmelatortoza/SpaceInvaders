@@ -17,17 +17,9 @@ public class DestroyEnemy : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider col){
 		if(col.tag == "Enemy"){
-			if(col.tag == "Enemy")
-				Scoring.totalScore += 100;
-			Destroy(col.gameObject);
-			Destroy(gameObject);
+			Scoring.totalScore += 100;
+			col.gameObject.SetActive(false);
+			gameObject.SetActive(false);
 		}
-//		if(col.tag == "Player"){
-//			playerHealth--;
-//			if(playerHealth <= 0){
-//				Destroy(col.gameObject);
-//			}
-//			Destroy(gameObject);
-//		}
 	}
 }
