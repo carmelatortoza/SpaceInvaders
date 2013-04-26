@@ -5,39 +5,63 @@ using System.Collections.Generic;
 public class EnemySpawn : MonoBehaviour {
 	
 	public Rigidbody enemyModel;
-	public Rigidbody enemyModel1;
 	public int duration;
-	public float respawnES = 3;
+	public int numberOfEnemies;
 	public float respawnE = 2;
 	public float minX = 40;
-	public float maxX = 50;
-	public float minY = -20;
-	public float maxY = 20;	
+	public float maxX = 42;
+	public float minY = -10;
+	public float maxY = 10;	
 	
 	private float elapsedTime;
+	private List<Rigidbody> enemy;
+	private int current = 0;	
 	
 	// Use this for initialization
 	void Start () {
-		
+		enemy = new List<Rigidbody>();
+		CreateEnemy(enemyModel, enemy);
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 		elapsedTime += Time.deltaTime;
-		if(elapsedTime > respawnES){
-			if(duration > 0){
-				Rigidbody enemy = Instantiate (enemyModel, enemyModel.position, enemyModel.rotation) as Rigidbody;
-				enemy.transform.Translate(Random.Range(minX, maxX), Random.Range(minY, maxY), 0);
-//				elapsedTime = 0;
-				duration--;
-			}
-		}
 		if(elapsedTime > respawnE){
-			if(duration > 0){
-				Rigidbody enemy1 = Instantiate (enemyModel1, enemyModel1.position, enemyModel1.rotation) as Rigidbody;
-				enemy1.transform.Translate(Random.Range(minX, maxX), Random.Range(minY, maxY), 0);
-				elapsedTime = 0;
-				duration--;
+			SpawnEnemy(current);
+			current++;
+			CheckEnemies(current - 1);
+			elapsedTime = 0;
+			Debug.Log("duration: " + duration);
+		}
+//		CheckEnemies();
+	}
+	
+	void SpawnEnemy(int i){
+		if(duration > 0){
+			if(i < numberOfEnemies && !enemy[i].gameObject.activeSelf){
+				enemy[i].gameObject.SetActive(true);
+				enemy[i].transform.position = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0);
+			}
+			duration--;
+		}
+	}
+	
+	void CreateEnemy(Rigidbody eModel, List<Rigidbody> list){
+		for(int i = 0; i < numberOfEnemies; i++){
+			Rigidbody en = Instantiate (eModel, eModel.position, eModel.rotation) as Rigidbody;
+			en.gameObject.SetActive(false);
+			list.Add(en);
+		}
+	}
+	
+	void CheckEnemies(int i){
+		if(current >= numberOfEnemies){
+			current = 0;
+			for(int j = 0; j < numberOfEnemies; j++){
+				if(!enemy[j].gameObject.activeSelf){
+					enemy[j].transform.position = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0);
+					enemy[j].gameObject.SetActive(false);
+				}
 			}
 		}
 	}
