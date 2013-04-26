@@ -49,7 +49,7 @@ public class EnemyBehavior : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider col){
 		if(col.tag == "Boundaries"){
-			Destroy(gameObject);
+			gameObject.SetActive(false);
 		}
 	}
 }

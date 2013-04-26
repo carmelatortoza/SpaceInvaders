@@ -5,6 +5,8 @@ public class PlayerControls : MonoBehaviour {
 	
 	public float moveSpeed = 10;
 	public string target;
+	public AudioClip sfx;
+//	public AudioSource playerHitSound;
 //	public int playerHealth = 3;
 //	public GUIText phText;
 	
@@ -31,7 +33,9 @@ public class PlayerControls : MonoBehaviour {
 	void OnTriggerEnter(Collider obj){
 		if(obj.tag == target){
 //			playerHealth--;
+			audio.PlayOneShot(sfx);
 			PlayerHealth.PlayerDamaged();
+//			playerHitSound.audio.Play();
 			obj.gameObject.SetActive(false);
 		}
 		if(PlayerHealth.CurrentHealth() == 0){

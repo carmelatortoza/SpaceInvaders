@@ -13,6 +13,7 @@ public class BulletSpawn : MonoBehaviour {
 	private float duration = 0;
 	private List<Rigidbody> bulletList;
 	private int current = 0;
+//	private Vector3 velo = new Vector3(10, 0, 0);
 	
 	// Use this for initialization
 	void Start () {
@@ -42,6 +43,7 @@ public class BulletSpawn : MonoBehaviour {
 			bulletList[i].gameObject.SetActive(true);
 			bulletList[i].transform.position = bulletEnd.position;
 			bulletList[i].AddForce(bulletEnd.right * firingSpeed);
+//			bulletList[i].velocity.x = Mathf.Clamp(bulletList[i].velocity.x, -velo, velo);
 //			current++;
 		}
 	}
