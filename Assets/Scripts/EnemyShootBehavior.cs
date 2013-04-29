@@ -6,7 +6,7 @@ public class EnemyShootBehavior : MonoBehaviour {
 	
 	public Rigidbody bulletPrefab;
 	public Transform bulletEnd;
-	public int firingSpeed = 5000;
+//	public int firingSpeed = 1000;
 	public int numberOfBullets;
 	public float duration = 1.5f;
 	
@@ -34,7 +34,9 @@ public class EnemyShootBehavior : MonoBehaviour {
 	void ShootAtPlayer(int i){
 		if(current < numberOfBullets){
 			bulletList[i].gameObject.SetActive(true);
-			bulletList[i].AddForce(-bulletEnd.right * firingSpeed);
+			bulletList[i].velocity = new Vector3(1,0,0);
+			bulletList[i].transform.position = bulletEnd.position;
+			bulletList[i].AddForce(-bulletEnd.right * EnemyDS.firingSpeed);
 		}
 	}
 	

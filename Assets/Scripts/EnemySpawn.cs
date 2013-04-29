@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class EnemySpawn : MonoBehaviour {
 	
 	public Rigidbody enemyModel;
-	public int duration;
+	public int duration = 15;
 	public int numberOfEnemies;
 	public float respawnE = 2;
 	public float minX = 40;
@@ -15,12 +15,14 @@ public class EnemySpawn : MonoBehaviour {
 	
 	private float elapsedTime;
 	private List<Rigidbody> enemy;
-	private int current = 0;	
+	private int current = 0;
+	private int dur = 0;
 	
 	// Use this for initialization
 	void Start () {
 		enemy = new List<Rigidbody>();
 		CreateEnemy(enemyModel, enemy);
+		dur = duration;
 	}
 	
 	// Update is called once per frame
@@ -31,7 +33,6 @@ public class EnemySpawn : MonoBehaviour {
 			current++;
 			CheckEnemies(current - 1);
 			elapsedTime = 0;
-			Debug.Log("duration: " + duration);
 		}
 //		CheckEnemies();
 	}
@@ -43,6 +44,8 @@ public class EnemySpawn : MonoBehaviour {
 				enemy[i].transform.position = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0);
 			}
 			duration--;
+		}else{
+			IncreaseDifficulty();
 		}
 	}
 	
@@ -51,6 +54,7 @@ public class EnemySpawn : MonoBehaviour {
 			Rigidbody en = Instantiate (eModel, eModel.position, eModel.rotation) as Rigidbody;
 			en.gameObject.SetActive(false);
 			list.Add(en);
+			Debug.Log("number of enemies upon create "+enemyModel.name+": "+numberOfEnemies);
 		}
 	}
 	
@@ -64,5 +68,13 @@ public class EnemySpawn : MonoBehaviour {
 				}
 			}
 		}
+	}
+		
+	void IncreaseDifficulty(){
+		duration = dur;
+		numberOfEnemies++;
+		EnemyDS.firingSpeed += 1000;
+		EnemyDS.moveSpeed ++;
+		CreateEnemy(enemyModel, enemy);
 	}
 }

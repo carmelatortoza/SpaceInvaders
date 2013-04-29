@@ -6,9 +6,7 @@ public class PlayerControls : MonoBehaviour {
 	public float moveSpeed = 10;
 	public string target;
 	public AudioClip sfx;
-//	public AudioSource playerHitSound;
-//	public int playerHealth = 3;
-//	public GUIText phText;
+	public float valueForYRange = 10f;
 	
 	// Use this for initialization
 	void Start () {
@@ -18,7 +16,6 @@ public class PlayerControls : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Move();
-//		DisplayHealth();
 	}
 	
 	void Move (){
@@ -31,21 +28,31 @@ public class PlayerControls : MonoBehaviour {
 	}
 		
 	void OnTriggerEnter(Collider obj){
-		if(obj.tag == target){
-//			playerHealth--;
-			audio.PlayOneShot(sfx);
-			PlayerHealth.PlayerDamaged();
-//			playerHitSound.audio.Play();
-			obj.gameObject.SetActive(false);
-		}
-		if(PlayerHealth.CurrentHealth() == 0){
-//			DisplayHealth();
-			gameObject.SetActive(false);
+		PlayerHit(obj);
+		if(PlayerDS.CurrentHealth() == 0){
 //			Application.LoadLevel("GameOver");
+			gameObject.SetActive(false);
+		}
+		Boundaries(obj);
+	}
+	
+	void PlayerHit(Collider obj){
+		if(obj.tag == target || obj.tag == "EnemyBullets"){
+			AudioSource.PlayClipAtPoint(sfx, Vector3.right);
+			
+			PlayerDS.PlayerDamaged();
+			obj.gameObject.SetActive(false);
 		}
 	}
 	
-//	void DisplayHealth(){
-//		phText.text = playerHealth.ToString();
-//	}
+	void Boundaries(Collider obj){
+		if(obj.tag == "Boundaries"){
+			if(obj.name == "Ceiling"){
+				transform.position = new Vector3(transform.position.x, -valueForYRange, transform.position.z);
+			}
+			if(obj.name == "Floor"){
+				transform.position = new Vector3(transform.position.x, valueForYRange, transform.position.z);
+			}
+		}
+	}
 }

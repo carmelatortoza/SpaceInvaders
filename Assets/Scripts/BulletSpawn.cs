@@ -6,7 +6,7 @@ public class BulletSpawn : MonoBehaviour {
 	
 	public Rigidbody bulletPrefab;
 	public Transform bulletEnd;
-	public int firingSpeed = 1000;
+	public int firingSpeed;
 	public float elapsedTime = 0.5f;
 	public int numberOfBullets;
 	
@@ -42,6 +42,7 @@ public class BulletSpawn : MonoBehaviour {
 		if(current < numberOfBullets){
 			bulletList[i].gameObject.SetActive(true);
 			bulletList[i].transform.position = bulletEnd.position;
+			bulletList[i].velocity = new Vector3(1,0,0);
 			bulletList[i].AddForce(bulletEnd.right * firingSpeed);
 //			bulletList[i].velocity.x = Mathf.Clamp(bulletList[i].velocity.x, -velo, velo);
 //			current++;
@@ -56,9 +57,5 @@ public class BulletSpawn : MonoBehaviour {
 				bulletList[j].gameObject.SetActive(false);
 			}
 		}
-	}
-	
-	void CreateBullets(){
-		
 	}
 }

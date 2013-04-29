@@ -3,7 +3,7 @@ using System.Collections;
 
 public class DestroyEnemy : MonoBehaviour {
 	
-//	public int playerHealth = 3;
+	public AudioClip sfx;
 	
 	// Use this for initialization
 	void Start () {
@@ -17,9 +17,23 @@ public class DestroyEnemy : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider col){
 		if(col.tag == "Enemy"){
-			Scoring.totalScore += 100;
-			col.gameObject.SetActive(false);
-			gameObject.SetActive(false);
+			Deactivate(col);
+			
+			Scoring.totalScore += EnemyDS.enemy1Points;
 		}
+		if(col.tag == "EnemyShooter"){
+			Deactivate(col);
+			
+			Scoring.totalScore += EnemyDS.enemy2Points;
+		}
+		if(col.tag == "Bullets"){
+			Deactivate(col);
+		}
+	}
+	
+	void Deactivate(Collider col){
+		AudioSource.PlayClipAtPoint(sfx, Vector3.right);
+		col.gameObject.SetActive(false);
+		gameObject.SetActive(false);
 	}
 }
