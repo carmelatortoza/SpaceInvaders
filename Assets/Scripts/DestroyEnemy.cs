@@ -19,20 +19,24 @@ public class DestroyEnemy : MonoBehaviour {
 		if(col.tag == "Enemy"){
 			Deactivate(col);
 			
-			Scoring.totalScore += EnemyDS.enemy1Points;
+			PlayerDS.AddScore(EnemyDS.enemy1Points);
 		}
 		if(col.tag == "EnemyShooter"){
 			Deactivate(col);
 			
-			Scoring.totalScore += EnemyDS.enemy2Points;
+			PlayerDS.AddScore(EnemyDS.enemy2Points);
 		}
-		if(col.tag == "Bullets"){
+		if(col.tag == "EnemyBullets"){
 			Deactivate(col);
 		}
 	}
 	
 	void Deactivate(Collider col){
 		AudioSource.PlayClipAtPoint(sfx, Vector3.right);
+		
+		Instantiate(Resources.Load("Prefabs/Explosion"), col.transform.position, col.transform.rotation);
+		Instantiate(Resources.Load("Prefabs/Explosion1"), col.transform.position, col.transform.rotation);
+		
 		col.gameObject.SetActive(false);
 		gameObject.SetActive(false);
 	}

@@ -54,7 +54,6 @@ public class EnemySpawn : MonoBehaviour {
 			Rigidbody en = Instantiate (eModel, eModel.position, eModel.rotation) as Rigidbody;
 			en.gameObject.SetActive(false);
 			list.Add(en);
-			Debug.Log("number of enemies upon create "+enemyModel.name+": "+numberOfEnemies);
 		}
 	}
 	

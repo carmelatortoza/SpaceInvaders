@@ -30,7 +30,7 @@ public class PlayerControls : MonoBehaviour {
 	void OnTriggerEnter(Collider obj){
 		PlayerHit(obj);
 		if(PlayerDS.CurrentHealth() == 0){
-//			Application.LoadLevel("GameOver");
+			Application.LoadLevel("GameOver");
 			gameObject.SetActive(false);
 		}
 		Boundaries(obj);

@@ -17,4 +17,9 @@ public class EnemyDS : MonoBehaviour {
 	void Update () {
 	
 	}
+	
+	public static void Reset(){
+		firingSpeed = 1000;
+		moveSpeed = 2;
+	}
 }
