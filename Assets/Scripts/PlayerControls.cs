@@ -6,7 +6,7 @@ public class PlayerControls : MonoBehaviour {
 	public float moveSpeed = 10;
 	public string target;
 	public AudioClip sfx;
-	public float valueForYRange = 10f;
+	public float valueForYRange = 09f;
 	
 	// Use this for initialization
 	void Start () {

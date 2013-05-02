@@ -2,24 +2,21 @@ using UnityEngine;
 using System.Collections;
 
 public class GameOver : MonoBehaviour {
-
+	
+	public Transform scoreLabel;
+	
 	// Use this for initialization
 	void Start () {
 		CheckHighScore();
+		UILabel lab = transform.GetComponent<UILabel>() as UILabel;
+		lab.text = "High Score: " + PlayerPrefs.GetInt("Highscore", 0).ToString();
+		UILabel lab1 = scoreLabel.transform.GetComponent<UILabel>() as UILabel;
+		lab1.text = "Score: " + PlayerDS.Score();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
-	}
-	
-	void OnGUI(){
-		GUI.Label(new Rect(180,120,100,40), "High Score: " + PlayerPrefs.GetInt("Highscore", 0).ToString());
-		if(GUI.Button(new Rect(240, 160, 80, 20), "Play Again")){
-			Application.LoadLevel("GameView");
-			PlayerDS.Reset();
-			EnemyDS.Reset();
-		}
 	}
 	
 	void CheckHighScore(){

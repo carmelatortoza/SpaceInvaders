@@ -9,7 +9,7 @@ public class EnemyBehavior : MonoBehaviour {
 	
 	private float timePassed = 0;
 	private float column = 2;
-	private float row = 2;
+	private float row = 1;
 	private Vector2 size;
 	private int lastIndex = -1;
 	
@@ -22,13 +22,7 @@ public class EnemyBehavior : MonoBehaviour {
 	void FixedUpdate () {
 		timePassed += Time.deltaTime;
 		Move ();
-		int index = (int)(Time.timeSinceLevelLoad * 10) % (int)(column * row);
-		if(index != lastIndex){
-			Vector2 sprit = new Vector2((index % column) * size.x, 1f - size.y - (index / row) * size.y);
-			renderer.material.SetTextureOffset("_MainTex", sprit);
-			renderer.material.SetTextureScale("MainTex", size);
-			lastIndex = index;
-		}
+		StartAnimating();
 	}
 	
 	void MoveDown(){
@@ -59,13 +53,25 @@ public class EnemyBehavior : MonoBehaviour {
 	void OnTriggerEnter(Collider col){
 		if(col.tag == "Boundaries"){
 			if(col.name == "Ceiling"){
-				transform.position = new Vector3(transform.position.x, -10f, transform.position.z);
+				transform.position = new Vector3(transform.position.x, -8f, transform.position.z);
 			}
 			if(col.name == "Floor"){
-				transform.position = new Vector3(transform.position.x, 10f, transform.position.z);
+				transform.position = new Vector3(transform.position.x, 8f, transform.position.z);
 			}
 			if(col.name == "Left"){
 				gameObject.SetActive(false);
+			}
+		}
+	}
+	
+	void StartAnimating(){
+		if(gameObject.tag == "EnemyShooter"){
+			int index = (int)(Time.timeSinceLevelLoad * 10) % (int)(column * row);
+			if(index != lastIndex){
+				Vector2 sprit = new Vector2((index % column) * size.x, 1f - size.y - (index / row) * size.y);
+				renderer.material.SetTextureOffset("_MainTex", sprit);
+				renderer.material.SetTextureScale("MainTex", size);
+				lastIndex = index;
 			}
 		}
 	}
